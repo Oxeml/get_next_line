@@ -6,7 +6,7 @@
 /*   By: oemelyan <oemelyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 16:36:16 by oemelyan          #+#    #+#             */
-/*   Updated: 2023/08/24 12:58:40 by oemelyan         ###   ########.fr       */
+/*   Updated: 2023/08/24 20:29:31 by oemelyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ char	*get_next_line(int fd)
 	static char		*storage = NULL;
 	char			*new_line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)				// fd > MAX FDs
 		return (NULL);
 	read_until_nl(fd, &storage);
 	if (storage == NULL)
@@ -108,15 +108,4 @@ char	*get_next_line(int fd)
 	if (clean_storage(&storage))
 		return (free(storage), free(new_line), NULL);
 	return (new_line);
-}
-
-int	main(void)
-{
-	int			fd;
-
-	fd = open("example.txt", O_RDONLY);
-	printf("the first line is: %s\n", get_next_line(fd));
-	printf("the second line is: %s\n", get_next_line(fd));
-	printf("the third line is: %s\n", get_next_line(fd));
-	return (0);
 }
