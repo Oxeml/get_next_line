@@ -6,7 +6,7 @@
 /*   By: oemelyan <oemelyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 16:38:34 by oemelyan          #+#    #+#             */
-/*   Updated: 2023/08/24 12:18:16 by oemelyan         ###   ########.fr       */
+/*   Updated: 2023/08/25 16:16:01 by oemelyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ char	*ft_strjoin(char *storage, char *buff_tmp)
 	}
 	joined_string[i] = '\0';
 	free(storage);
+	storage = NULL; //added
 	return (joined_string);
 }
 

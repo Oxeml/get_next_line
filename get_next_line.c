@@ -6,7 +6,7 @@
 /*   By: oemelyan <oemelyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 16:36:16 by oemelyan          #+#    #+#             */
-/*   Updated: 2023/08/24 20:29:31 by oemelyan         ###   ########.fr       */
+/*   Updated: 2023/08/25 16:13:52 by oemelyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	clean_storage(char **storage)
 		cleaned_storage[j++] = tmp[i++];
 	free(*storage);
 	*storage = cleaned_storage;
+	cleaned_storage = NULL;
 	return (0);
 }
 
@@ -84,12 +85,15 @@ char	*read_until_nl(int fd, char **storage)
 		{
 			free(buff_tmp);
 			free(*storage);
+			buff_tmp = NULL; //added
+			*storage = NULL; //added
 			return (NULL);
 		}
 		buff_tmp[bites_we_did] = '\0';
 		*storage = ft_strjoin(*storage, buff_tmp);
 	}
 	free(buff_tmp);
+	buff_tmp = NULL; //added
 	return (*storage);
 }
 
@@ -107,5 +111,7 @@ char	*get_next_line(int fd)
 		return (free(storage), NULL);
 	if (clean_storage(&storage))
 		return (free(storage), free(new_line), NULL);
+	if (new_line[0] == '\0')
+		return (free(new_line), free(storage), NULL);
 	return (new_line);
 }
