@@ -6,11 +6,12 @@
 /*   By: oemelyan <oemelyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 16:36:16 by oemelyan          #+#    #+#             */
-/*   Updated: 2023/08/25 16:13:52 by oemelyan         ###   ########.fr       */
+/*   Updated: 2023/08/29 15:44:32 by oemelyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
 int	clean_storage(char **storage)
 {
@@ -69,7 +70,7 @@ int	extract_line(char **storage, char **new_line)
 	return (0);
 }
 
-char	*read_until_nl(int fd, char **storage)
+int	read_until_nl(int fd, char **storage)
 {
 	ssize_t		bites_we_did;
 	char		*buff_tmp;
@@ -77,24 +78,25 @@ char	*read_until_nl(int fd, char **storage)
 	bites_we_did = 1;
 	buff_tmp = malloc(BUFFER_SIZE + 1);
 	if (!buff_tmp)
-		return (NULL);
+		return 1;
 	while (no_new_line(*storage) && bites_we_did != 0)
 	{
 		bites_we_did = read(fd, buff_tmp, BUFFER_SIZE);
+		// printf("bytes rread : %d", bites_we_did);
 		if (bites_we_did == -1)
 		{
 			free(buff_tmp);
 			free(*storage);
-			buff_tmp = NULL; //added
+			// buff_tmp = NULL; //added
 			*storage = NULL; //added
-			return (NULL);
+			return (1);
 		}
-		buff_tmp[bites_we_did] = '\0';
+		buff_tmp[bites_we_did] = '\0'; 
 		*storage = ft_strjoin(*storage, buff_tmp);
 	}
 	free(buff_tmp);
-	buff_tmp = NULL; //added
-	return (*storage);
+	// buff_tmp = NULL; //added
+	return (0);
 }
 
 char	*get_next_line(int fd)
@@ -104,14 +106,19 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0)				// fd > MAX FDs
 		return (NULL);
-	read_until_nl(fd, &storage);
+	if (read_until_nl(fd, &storage))
+		return (NULL);
 	if (storage == NULL)
 		return (NULL);
 	if (extract_line(&storage, &new_line))
-		return (free(storage), NULL);
+		return (NULL);
 	if (clean_storage(&storage))
 		return (free(storage), free(new_line), NULL);
 	if (new_line[0] == '\0')
-		return (free(new_line), free(storage), NULL);
+	{
+		free(storage);
+		storage = NULL;
+		return (free(new_line),NULL);
+	}
 	return (new_line);
 }

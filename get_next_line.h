@@ -6,7 +6,7 @@
 /*   By: oemelyan <oemelyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 16:42:35 by oemelyan          #+#    #+#             */
-/*   Updated: 2023/08/24 20:07:01 by oemelyan         ###   ########.fr       */
+/*   Updated: 2023/08/29 15:29:22 by oemelyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@
 # include <fcntl.h>
 # include <stdbool.h>
 
+#include <stdio.h>
+
 char	*get_next_line(int fd);
-char	*read_until_nl(int fd, char **storage);
+int		read_until_nl(int fd, char **storage);
 bool	no_new_line(char *storage);
 int		extract_line(char **storage, char **new_line);
 int		clean_storage(char **storage);
