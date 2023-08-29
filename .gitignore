@@ -1,5 +1,6 @@
 *.o
 *.out
+example.txt
 *.txt
 *.dSYM
 main.c
