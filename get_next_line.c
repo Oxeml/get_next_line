@@ -6,7 +6,7 @@
 /*   By: oemelyan <oemelyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 16:36:16 by oemelyan          #+#    #+#             */
-/*   Updated: 2023/08/29 15:44:32 by oemelyan         ###   ########.fr       */
+/*   Updated: 2023/08/29 16:06:18 by oemelyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,7 @@ int	extract_line(char **storage, char **new_line)
 	char	*tmp;
 
 	tmp = *storage;
-
 	i = 0;
-	// if (!tmp[i])
-	// 	return (NULL);
 	while (tmp[i] != '\0' && tmp[i] != '\n')
 		i++;
 	if (tmp[i] == '\n')
@@ -78,24 +75,21 @@ int	read_until_nl(int fd, char **storage)
 	bites_we_did = 1;
 	buff_tmp = malloc(BUFFER_SIZE + 1);
 	if (!buff_tmp)
-		return 1;
+		return (1);
 	while (no_new_line(*storage) && bites_we_did != 0)
 	{
 		bites_we_did = read(fd, buff_tmp, BUFFER_SIZE);
-		// printf("bytes rread : %d", bites_we_did);
 		if (bites_we_did == -1)
 		{
 			free(buff_tmp);
 			free(*storage);
-			// buff_tmp = NULL; //added
-			*storage = NULL; //added
+			*storage = NULL;
 			return (1);
 		}
-		buff_tmp[bites_we_did] = '\0'; 
+		buff_tmp[bites_we_did] = '\0';
 		*storage = ft_strjoin(*storage, buff_tmp);
 	}
 	free(buff_tmp);
-	// buff_tmp = NULL; //added
 	return (0);
 }
 
@@ -104,7 +98,7 @@ char	*get_next_line(int fd)
 	static char		*storage = NULL;
 	char			*new_line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)				// fd > MAX FDs
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	if (read_until_nl(fd, &storage))
 		return (NULL);
@@ -118,7 +112,7 @@ char	*get_next_line(int fd)
 	{
 		free(storage);
 		storage = NULL;
-		return (free(new_line),NULL);
+		return (free(new_line), NULL);
 	}
 	return (new_line);
 }

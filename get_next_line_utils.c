@@ -6,7 +6,7 @@
 /*   By: oemelyan <oemelyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 16:38:34 by oemelyan          #+#    #+#             */
-/*   Updated: 2023/08/29 15:38:17 by oemelyan         ###   ########.fr       */
+/*   Updated: 2023/08/29 16:03:38 by oemelyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,6 @@ char	*ft_strjoin(char *storage, char *buff_tmp)
 	unsigned int		i;
 	unsigned int		j;
 
-	if (!storage)
-	{
-		storage = malloc(1);
-		storage[0] = '\0';
-	}
 	joined_string = malloc(ft_strlen(storage) + ft_strlen(buff_tmp) + 1);
 	if (joined_string == NULL)
 		return (NULL);
@@ -51,7 +46,7 @@ char	*ft_strjoin(char *storage, char *buff_tmp)
 	}
 	joined_string[i] = '\0';
 	free(storage);
-	storage = NULL; //added
+	storage = NULL;
 	return (joined_string);
 }
 

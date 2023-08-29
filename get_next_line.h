@@ -6,7 +6,7 @@
 /*   By: oemelyan <oemelyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 16:42:35 by oemelyan          #+#    #+#             */
-/*   Updated: 2023/08/29 15:29:22 by oemelyan         ###   ########.fr       */
+/*   Updated: 2023/08/29 16:04:08 by oemelyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <stdbool.h>
-
-#include <stdio.h>
+# include <stdio.h>
 
 char	*get_next_line(int fd);
 int		read_until_nl(int fd, char **storage);
