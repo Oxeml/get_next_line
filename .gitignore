@@ -3,3 +3,4 @@
 *.txt
 *.dSYM
 main.c
+*.gch
